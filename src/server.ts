@@ -23,6 +23,31 @@ app.post('/category', async (req, res) => {
     return res.json(category)
 });
 
+app.get('/classroom', async (req, res) => {
+    const classes =  await prisma.classroom.findMany();
+
+    return res.json(classes)
+});
+
+app.post('/classroom', async (req, res) => {
+    const { title, numberClasses,time,video,description,idCategory } = req.body;
+
+    const classes = await prisma.classroom.create({
+        data: { // nao entendi oq coloca nessa parte, o q é esse data ?
+        title,
+            numberClasses,
+             time,
+             video,
+             description,
+             idCategory,
+    }
+    })
+
+    return res.json(classes)
+});
+
+
+
 
 app.listen(3333, () => {
     console.log('Server rodandoo');

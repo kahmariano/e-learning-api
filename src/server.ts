@@ -37,7 +37,7 @@ app.post('/classroom', async (req, res) => {
     const { title, numberClasses,time,video,description,categoryId } = req.body;
 
     const classroom = await prisma.classroom.create({
-        data: { // nao entendi oq coloca nessa parte, o q é esse data ?
+        data: { 
         title,
             numberClasses,
              time,

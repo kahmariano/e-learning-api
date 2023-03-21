@@ -35,5 +35,37 @@ model Classroom {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  @@map("classes") // oq significa esse map
+  @@map("classes") //map permitee que mudemos o nome da tabela depois
 }
+
+model User {
+  id Int @id @default(autoincrement())
+  idDevide String
+
+  createdAt DateTime @default(now()) 
+  updatedAt DateTime @updatedAt //nao tenhho certeza se precisa desse pq n acho que vai ter alteraçao depois de criado
+
+  @@map("users")
+}
+
+model CategoryUser {
+  id Int @id @default(autoincrement())
+  userId Int //vai pegar referencia da tabela User
+  categoryId Int //vai pegar referencia da tabela Category
+
+  createdAt DateTime @default(now()) 
+  updatedAt DateTime @updatedAt
+
+  @@map("categoryusers")
+} // tabela de categoria favorita do usuario
+
+model ClassroomUser {
+  id Int @id @default(autoincrement())
+  userId Int //vai pegar referencia da tabela User
+  classrooomId Int  //vai pegar referencia da tabela Classroom // rascunho era categoryId
+
+  createAt DateTime @default(now())
+  updateAt DateTime @updatedAt
+
+  @@map("classesUsers")
+} //tabela de aulas favoritas do usuario

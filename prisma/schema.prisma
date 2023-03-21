@@ -14,13 +14,14 @@ model Category {
   id    Int     @id @default(autoincrement())
   title String
   image String?
+  categoryusers CategoryUser[] //referencia da CategoryUser
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   classes Classroom[]
 
-  @@map("categories")
-}
+  @@map("categories")//map permitee que mudemos o nome da tabela depois
+}//tabela de categoria
 
 model Classroom {
   id            Int    @id @default(autoincrement())
@@ -35,12 +36,13 @@ model Classroom {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  @@map("classes") //map permitee que mudemos o nome da tabela depois
-}
+  @@map("classes") 
+} //tabela de aula
 
 model User {
   id Int @id @default(autoincrement())
   idDevide String
+  categoryusers CategoryUser[] //referencia da CategoryUser
 
   createdAt DateTime @default(now()) 
   updatedAt DateTime @updatedAt //nao tenhho certeza se precisa desse pq n acho que vai ter alteraçao depois de criado
@@ -50,7 +52,9 @@ model User {
 
 model CategoryUser {
   id Int @id @default(autoincrement())
-  userId Int //vai pegar referencia da tabela User
+  user User @relation(fields: [userId], references: [id])
+  userId Int //vai pegar referencia da tabela User 
+  category Category @relation(fields: [categoryId], references: [id])
   categoryId Int //vai pegar referencia da tabela Category
 
   createdAt DateTime @default(now()) 

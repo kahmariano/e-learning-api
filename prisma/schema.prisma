@@ -11,65 +11,69 @@ datasource db {
 }
 
 model Category {
-  id    Int     @id @default(autoincrement())
-  title String
-  image String?
+  id            Int            @id @default(autoincrement())
+  title         String
+  image         String?
   categoryusers CategoryUser[] //referencia da CategoryUser
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  classes Classroom[]
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+  classes   Classroom[]
 
-  @@map("categories")//map permitee que mudemos o nome da tabela depois
-}//tabela de categoria
+  @@map("categories") //map permitee que mudemos o nome da tabela depois
+}
+//tabela de categoria
 
 model Classroom {
-  id            Int    @id @default(autoincrement())
+  id            Int      @id @default(autoincrement())
   title         String
   numberClasses Int
   time          Float
   video         String
   description   String
-  category      Category   @relation(fields: [categoryId], references: [id])
-  categoryId Int
+  category      Category @relation(fields: [categoryId], references: [id])
+  categoryId    Int
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  @@map("classes") 
-} //tabela de aula
+  @@map("classes")
+}
+//tabela de aula
 
 model User {
-  id Int @id @default(autoincrement())
-  idDevide String
+  id            Int            @id @default(autoincrement())
+  idDevide      String
   categoryusers CategoryUser[] //referencia da CategoryUser
 
-  createdAt DateTime @default(now()) 
+  createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt //nao tenhho certeza se precisa desse pq n acho que vai ter alteraçao depois de criado
 
   @@map("users")
 }
 
 model CategoryUser {
-  id Int @id @default(autoincrement())
-  user User @relation(fields: [userId], references: [id])
-  userId Int //vai pegar referencia da tabela User 
-  category Category @relation(fields: [categoryId], references: [id])
+  id         Int      @id @default(autoincrement())
+  user       User     @relation(fields: [userId], references: [id])
+  userId     Int //vai pegar referencia da tabela User 
+  category   Category @relation(fields: [categoryId], references: [id])
   categoryId Int //vai pegar referencia da tabela Category
 
-  createdAt DateTime @default(now()) 
+  createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   @@map("categoryusers")
-} // tabela de categoria favorita do usuario
+}
+// tabela de categoria favorita do usuario
 
 model ClassroomUser {
-  id Int @id @default(autoincrement())
-  userId Int //vai pegar referencia da tabela User
-  classrooomId Int  //vai pegar referencia da tabela Classroom // rascunho era categoryId
+  id          Int @id @default(autoincrement())
+  userId      Int //vai pegar referencia da tabela User
+  classroomId Int //vai pegar referencia da tabela Classroom // rascunho era categoryId
 
   createAt DateTime @default(now())
   updateAt DateTime @updatedAt
 
   @@map("classesUsers")
-} //tabela de aulas favoritas do usuario
+}
+//tabela de aulas favoritas do usuario

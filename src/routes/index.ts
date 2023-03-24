@@ -5,8 +5,8 @@ import { userRouter } from './user';
 
 const appRouter = Router();
 
-appRouter.use('classroom', classroomRouter);
-appRouter.use('users', userRouter);
-appRouter.use('categories', categoryRouter);
+appRouter.use('/classroom', classroomRouter);
+appRouter.use('/users', userRouter);
+appRouter.use('/categories', categoryRouter);
 
 export { appRouter };

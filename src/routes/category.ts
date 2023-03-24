@@ -1,4 +1,4 @@
-import { Express, Request, Response, Router } from 'express';
+import { Router } from 'express';
 import CategoryController from '../controllers/Category';
 import { prisma } from '../prisma';
 
@@ -9,17 +9,7 @@ const categoryController = new CategoryController();
 categoryRouter.get('/', categoryController.list);
 
 // rota postar de categoria
-categoryRouter.post('/', async (request: Request, response: Response) => {
-  const { title } = request.body;
-
-  const category = await prisma.category.create({
-    data: {
-      title,
-    },
-  });
-
-  return response.json(category);
-});
+categoryRouter.post('/', categoryController.create);
 
 // rota pegar de categoria usuario
 categoryRouter.get('/users', async (request, response) => {

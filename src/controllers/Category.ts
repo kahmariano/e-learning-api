@@ -1,6 +1,8 @@
 import { Request, Response } from 'express';
 import GetCategoriesService from '../services/GetCategories';
 import PostCategoryService from '../services/PostCategory';
+import GetCategoryUserService from '../services/GetCategoryUser';
+import PostCategoryUserService from '../services/PostCategoryUser';
 
 export default class CategoryController {
   public async list(request: Request, response: Response) {
@@ -26,5 +28,19 @@ export default class CategoryController {
     const { categoryusers } = await getCategoryUser.execute();
 
     return response.json(categoryusers);
+  }
+
+  public async createn(request: Request, response: Response) {
+    const { user, userId, category, categoryId } = request.body;
+    const postCategoryUser = new PostCategoryUserService();
+
+    const { categoryuser } = await postCategoryUser.execute({
+      user,
+      userId,
+      category,
+      categoryId,
+    });
+
+    return response.json(categoryuser);
   }
 }

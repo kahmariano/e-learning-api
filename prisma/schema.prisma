@@ -33,6 +33,7 @@ model Classroom {
   description   String
   category      Category @relation(fields: [categoryId], references: [id])
   categoryId    Int
+  classroomUsers ClassroomUser[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -45,6 +46,7 @@ model User {
   id            Int            @id @default(autoincrement())
   idDevide      String
   categoryusers CategoryUser[] //referencia da CategoryUser
+  classroomUsers ClassroomUser[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt //nao tenhho certeza se precisa desse pq n acho que vai ter alteraçao depois de criado
@@ -55,7 +57,7 @@ model User {
 model CategoryUser {
   id         Int      @id @default(autoincrement())
   user       User     @relation(fields: [userId], references: [id])
-  userId     Int //vai pegar referencia da tabela User 
+  userId     Int //vai pegar referencia da tabela User
   category   Category @relation(fields: [categoryId], references: [id])
   categoryId Int //vai pegar referencia da tabela Category
 
@@ -69,7 +71,9 @@ model CategoryUser {
 model ClassroomUser {
   id          Int @id @default(autoincrement())
   userId      Int //vai pegar referencia da tabela User
+  user       User     @relation(fields: [userId], references: [id])
   classroomId Int //vai pegar referencia da tabela Classroom // rascunho era categoryId
+  classroom   Classroom @relation(fields: [classroomId], references: [id])
 
   createAt DateTime @default(now())
   updateAt DateTime @updatedAt

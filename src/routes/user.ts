@@ -1,31 +1,32 @@
-import { Express, request, response } from "express";
-import { prisma } from "../prisma";
+import { Router } from 'express';
+import { prisma } from '../prisma';
 
-export async function appRoutesUser(app: Express) {
-    //rota pegar de aula usuario
-    app.get('/classroomuser', async (request, response) => {
-        const classroomusers = await prisma.classroomUser.findMany({
-            include: {
-                user: true,
-                classroom: true
-            }
-        })
+const userRouter = Router();
 
-        return response.json(classroomusers)
-    });
+// rota pegar de aula usuario
+userRouter.get('/', async (request, response) => {
+  const classroomusers = await prisma.classroomUser.findMany({
+    include: {
+      user: true,
+      classroom: true,
+    },
+  });
 
-    //rota postar dee aula usuario
-    app.post('/classroomuser', async (request, response) => {
-        const { userId, classroomId } = request.body;
+  return response.json(classroomusers);
+});
 
-        const classroomuser = await prisma.classroomUser.create({
-            data: {
-                userId, classroomId
-            }
-        })
+// rota postar dee aula usuario
+userRouter.post('/', async (request, response) => {
+  const { userId, classroomId } = request.body;
 
-        return response.json(classroomuser)
-    });
+  const classroomuser = await prisma.classroomUser.create({
+    data: {
+      userId,
+      classroomId,
+    },
+  });
 
+  return response.json(classroomuser);
+});
 
-}
+export { userRouter };

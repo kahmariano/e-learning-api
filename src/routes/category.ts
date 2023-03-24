@@ -1,53 +1,52 @@
-import { Express, request, response } from "express";
-import { prisma } from "../prisma";
+import { Express, Request, Response, Router } from 'express';
+import CategoryController from '../controllers/Category';
+import { prisma } from '../prisma';
 
-export async function appRoutesCategory(app: Express) {
-    //rota pegar de categoria
-    app.get('/category', async (request, response) => {
-        const categories = await prisma.category.findMany({
-            include: {
-                categoryusers: true
-            }
-        })
-        return response.json(categories)
-    })
+const categoryRouter = Router();
+const categoryController = new CategoryController();
 
-    //rota postar de categoria
-    app.post('/category', async (request, response) => {
-        const { title } = request.body;
+// rota pegar de categoria
+categoryRouter.get('/', categoryController.list);
 
-        const category = await prisma.category.create({
-            data: {
-                title,
-            }
-        })
+// rota postar de categoria
+categoryRouter.post('/', async (request: Request, response: Response) => {
+  const { title } = request.body;
 
-        return response.json(category)
-    });
+  const category = await prisma.category.create({
+    data: {
+      title,
+    },
+  });
 
-    //rota pegar de categoria usuario
-    app.get('/categoryuser', async (request, response) => {
-        const categoryusers = await prisma.categoryUser.findMany({
-            include: {
-                category: true,
-                user: true
-            }
-        })
+  return response.json(category);
+});
 
-        return response.json(categoryusers)
-    });
+// rota pegar de categoria usuario
+categoryRouter.get('/users', async (request, response) => {
+  const categoryusers = await prisma.categoryUser.findMany({
+    include: {
+      category: true,
+      user: true,
+    },
+  });
 
-    //rota postar de categoria usuario
-    app.post('/categoryuser', async (request, response) => {
-        const { user, userId, category, categoryId } = request.body;
+  return response.json(categoryusers);
+});
 
-        const categoryuser = await prisma.categoryUser.create({
-            data: {
-                user, userId, category, categoryId
-            }
-        })
+// rota postar de categoria usuario
+categoryRouter.post('/users', async (request, response) => {
+  const { user, userId, category, categoryId } = request.body;
 
-        return response.json(categoryuser)
-    });
+  const categoryuser = await prisma.categoryUser.create({
+    data: {
+      user,
+      userId,
+      category,
+      categoryId,
+    },
+  });
 
-}
+  return response.json(categoryuser);
+});
+
+export { categoryRouter };

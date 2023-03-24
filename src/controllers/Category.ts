@@ -5,7 +5,7 @@ import GetCategoryUserService from '../services/GetCategoryUser';
 import PostCategoryUserService from '../services/PostCategoryUser';
 
 export default class CategoryController {
-  public async list(request: Request, response: Response) {
+  public async listCategory(request: Request, response: Response) {
     const getCategories = new GetCategoriesService(); // instancia da class
 
     const { categories } = await getCategories.execute();
@@ -13,7 +13,7 @@ export default class CategoryController {
     return response.json(categories);
   }
 
-  public async create(request: Request, response: Response) {
+  public async createCategory(request: Request, response: Response) {
     const { title } = request.body;
     const postCategory = new PostCategoryService();
 
@@ -22,7 +22,7 @@ export default class CategoryController {
     return response.json(category);
   }
 
-  public async listen(request: Response, response: Response) {
+  public async listCategoryUser(request: Response, response: Response) {
     const getCategoryUser = new GetCategoryUserService(); // instancia da class
 
     const { categoryusers } = await getCategoryUser.execute();
@@ -30,7 +30,7 @@ export default class CategoryController {
     return response.json(categoryusers);
   }
 
-  public async createn(request: Request, response: Response) {
+  public async createCategoryUser(request: Request, response: Response) {
     const { user, userId, category, categoryId } = request.body;
     const postCategoryUser = new PostCategoryUserService();
 

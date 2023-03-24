@@ -2,9 +2,9 @@ import { prisma } from '../prisma';
 
 interface PostCategoryUserProps {
   user: string;
-  userId: string;
+  userId: number;
   category: string;
-  categoryId: string;
+  categoryId: number;
 }
 
 export default class PostCategoryUserService {

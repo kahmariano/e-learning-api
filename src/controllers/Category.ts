@@ -19,4 +19,12 @@ export default class CategoryController {
 
     return response.json(category);
   }
+
+  public async listen(request: Response, response: Response) {
+    const getCategoryUser = new GetCategoryUserService(); // instancia da class
+
+    const { categoryusers } = await getCategoryUser.execute();
+
+    return response.json(categoryusers);
+  }
 }

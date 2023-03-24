@@ -12,16 +12,8 @@ categoryRouter.get('/', categoryController.list);
 categoryRouter.post('/', categoryController.create);
 
 // rota pegar de categoria usuario
-categoryRouter.get('/users', async (request, response) => {
-  const categoryusers = await prisma.categoryUser.findMany({
-    include: {
-      category: true,
-      user: true,
-    },
-  });
-
-  return response.json(categoryusers);
-});
+categoryRouter.get('/', categoryController.list);
+// nao sei se isso ta certo
 
 // rota postar de categoria usuario
 categoryRouter.post('/users', async (request, response) => {

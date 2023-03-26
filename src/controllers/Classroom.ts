@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
-import GetClassroomService from '../services/GetClassroom';
-import PostClassroomService from '../services/PostClassroom';
+import GetClassroomService from '../services/Classroom/GetClassroom';
+import PostClassroomService from '../services/Classroom/PostClassroom';
 
 export default class classroomController {
   public async listClassroom(request: Request, response: Response) {

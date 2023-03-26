@@ -1,8 +1,8 @@
 import { Request, Response } from 'express';
-import GetCategoriesService from '../services/GetCategories';
-import PostCategoryService from '../services/PostCategory';
-import GetCategoryUserService from '../services/GetCategoryUser';
-import PostCategoryUserService from '../services/PostCategoryUser';
+import GetCategoriesService from '../services/Category/GetCategories';
+import PostCategoryService from '../services/Category/PostCategory';
+import GetCategoryUserService from '../services/Category/GetCategoryUser';
+import PostCategoryUserService from '../services/Category/PostCategoryUser';
 
 export default class CategoryController {
   public async listCategory(request: Request, response: Response) {

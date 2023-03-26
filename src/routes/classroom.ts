@@ -1,39 +1,13 @@
 import { Router } from 'express';
-import { prisma } from '../prisma';
-
-// export async function appRoutesClassroom(app: Express){
+import ClassroomController from '../controllers/Classroom';
 
 const classroomRouter = Router();
+const classroomController = new ClassroomController();
 
 // rota pegar de aula
-classroomRouter.get('/', async (request, response) => {
-  const classes = await prisma.classroom.findMany({
-    include: {
-      category: true,
-    },
-  });
-
-  return response.json(classes);
-});
+classroomRouter.get('/', classroomController.listClassroom);
 
 // rota postar de aula
-classroomRouter.post('/', async (request, response) => {
-  const { title, numberClasses, time, video, description, categoryId } =
-    request.body;
+classroomRouter.post('/', classroomController.createClassroom);
 
-  const classroom = await prisma.classroom.create({
-    data: {
-      title,
-      numberClasses,
-      time,
-      video,
-      description,
-      categoryId,
-    },
-  });
-
-  return response.json(classroom);
-});
-
-// }
 export { classroomRouter };

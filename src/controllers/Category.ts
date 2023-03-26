@@ -22,7 +22,7 @@ export default class CategoryController {
     return response.json(category);
   }
 
-  public async listCategoryUser(request: Response, response: Response) {
+  public async listCategoryUser(request: Request, response: Response) {
     const getCategoryUser = new GetCategoryUserService(); // instancia da class
 
     const { categoryusers } = await getCategoryUser.execute();
@@ -31,13 +31,11 @@ export default class CategoryController {
   }
 
   public async createCategoryUser(request: Request, response: Response) {
-    const { user, userId, category, categoryId } = request.body;
+    const { userId, categoryId } = request.body;
     const postCategoryUser = new PostCategoryUserService();
 
     const { categoryuser } = await postCategoryUser.execute({
-      user,
       userId,
-      category,
       categoryId,
     });
 
